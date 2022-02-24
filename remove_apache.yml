@@ -3,37 +3,22 @@
   become: true
   tasks:
 
-
-  - name: update repository index
+  - name: Remove apache and php for ubuntu servers
     apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: absent
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
 
-  - name: remove apache2 package
-    apt:
-      name: apache2
-      state: absent
-    when: ansible_distribution == "Ubuntu"
-
-  - name: remove php support for apache
-    apt:
-      name: libapache2-mod-php
-      state: absent
-    when: ansible_distribution == "Ubuntu"
-
-  - name: update repository index
+  - name: Remove apache and php for Alma servers
     dnf:
+      name:
+       - httpd
+       - php
+      state: absent
       update_cache: yes
-    when: ansible_distribution == "CentOS"
-
-  - name: remove apache2 package
-    dnf:
-      name: httpd
-      state: absent
-    when: ansible_distribution == "CentOS"
-
-  - name: remove php support for apache
-    dnf:
-      name: php
-      state: absent
-    when: ansible_distribution == "CentOS"
+    when: ansible_distribution == "AlmaLinux"
+  
+  

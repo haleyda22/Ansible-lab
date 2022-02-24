@@ -1,3 +1,4 @@
 ans-01 ansible_user=ansible01
-ans-02 ansible_user=ansible02
-ans-03 ansible_user=ansible03
+ans-02 ansible_user=ansible02 
+ans-03 ansible_user=ansible03 
+ans-04 ansible_user=ansible04
