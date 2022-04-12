@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Updating Package Cache for Ubuntu Servers
+    apt:
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Update all packages on Ubuntu Servers
+    apt:
+      name: "*"
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Upgrade the OS on Ubuntu Servers
+    apt:
+      upgrade: dist
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Upgrade all packages on Alma Servers
+    dnf:
+      name: "*"
+      state: latest  
+    when: ansible_distribution == "AlmaLinux"
+
+  - name: Reboot All Servers
+    reboot:
