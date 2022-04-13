@@ -14,6 +14,15 @@
       state: latest
     when: ansible_distribution == "Ubuntu"
 
+  - name: Reboot All Ubuntu Servers To Apply Package Changes
+    reboot:
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Updating Package Cache for Ubuntu Servers To Prepare for OS Upgrade
+    apt:
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
   - name: Upgrade the OS on Ubuntu Servers
     apt:
       upgrade: dist
