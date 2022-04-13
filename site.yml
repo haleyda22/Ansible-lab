@@ -1,0 +1,69 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: Install Updates for AlmaLinux Servers
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "AlmaLinux"
+
+  - name: Install Updates for Ubuntu Servers
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+- hosts: web_servers
+  become: true
+  tasks:
+
+  - name: Install apache and php for ubuntu web servers
+    apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  - name: install apache and php for AlmaLinux web servers
+    dnf:
+      name:
+       - httpd
+       - php
+      state: latest
+    when: ansible_distribution == "AlmaLinux"
+
+- hosts: db_servers
+  become: true
+  tasks: 
+
+  - name: Install mariadb package for AlmaLinux Servers
+    dnf:
+      name: mariadb
+      state: latest
+    when: ansible_distribution == "AlmaLinux"
+
+  - name: Install mariadb package for Ubuntu Servers
+    apt:
+      name: mariadb-server
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+- hosts: file_servers
+  become: true
+  tasks:
+
+  - name: Install Samba Package
+    package:
+      name: samba
+      state: latest
+
+
+  
+  
+
+   
+
+  
