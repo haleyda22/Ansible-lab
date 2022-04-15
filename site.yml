@@ -4,12 +4,14 @@
   pre_tasks:
 
   - name: Install Updates for AlmaLinux Servers
+    tags: always
     dnf:
       update_only: yes
       update_cache: yes
     when: ansible_distribution == "AlmaLinux"
 
   - name: Install Updates for Ubuntu Servers
+    tags: always
     apt:
       upgrade: dist
       update_cache: yes
@@ -20,6 +22,7 @@
   tasks:
 
   - name: Install apache and php for ubuntu web servers
+    tags: apache,apache2,ubuntu
     apt:
       name: 
         - apache2
@@ -28,6 +31,7 @@
     when: ansible_distribution == "Ubuntu"
 
   - name: install apache and php for AlmaLinux web servers
+    tags: apache,almalinux,httpd
     dnf:
       name:
        - httpd
@@ -40,12 +44,14 @@
   tasks: 
 
   - name: Install mariadb package for AlmaLinux Servers
+    tags: almalinux,db,mariadb
     dnf:
       name: mariadb
       state: latest
     when: ansible_distribution == "AlmaLinux"
 
   - name: Install mariadb package for Ubuntu Servers
+    tags: db,mariadb,ubuntu
     apt:
       name: mariadb-server
       state: latest
@@ -56,6 +62,7 @@
   tasks:
 
   - name: Install Samba Package
+    tags: samba
     package:
       name: samba
       state: latest
