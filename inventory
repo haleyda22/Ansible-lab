@@ -7,3 +7,6 @@ ans-02 ansible_user=ansible02
 
 [file_servers]
 ans-03 ansible_user=ansible03 
+
+[workstations]
+ans-master ansible_user=ansible-admin

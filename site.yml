@@ -17,6 +17,23 @@
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
 
+- hosts: workstations
+  become: true
+  tasks:
+
+  - name: Install unzip
+    package:
+    name: unzip
+
+  - name: Install Terraform
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/1.1.9/terraform_1.1.9_linux_amd64.zip
+      dest: /usr/local/bin
+      remote_src: yes
+      mode: 0755
+      owner: root
+      group: root
+
 - hosts: web_servers
   become: true
   tasks:
@@ -38,6 +55,15 @@
        - php
       state: latest
     when: ansible_distribution == "AlmaLinux"
+
+  - name: Copy default html file for site
+    tags: apache,apache2,httpd
+    copy:
+      src: default_site.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644  
 
 - hosts: db_servers
   become: true
